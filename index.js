@@ -36,6 +36,18 @@ async function run() {
     const package1 = client.db("KDCDatabase").collection("package-1");
     const package2 = client.db("KDCDatabase").collection("package-2");
     const package3 = client.db("KDCDatabase").collection("package-3");
+    const package4 = client.db("KDCDatabase").collection("package-4");
+    const package5 = client.db("KDCDatabase").collection("package-5");
+    const package6 = client.db("KDCDatabase").collection("package-6");
+    const package7 = client.db("KDCDatabase").collection("package-7");
+    const package8 = client.db("KDCDatabase").collection("package-8");
+    const package9 = client.db("KDCDatabase").collection("package-9");
+    const package10 = client.db("KDCDatabase").collection("package-10");
+    const package11 = client.db("KDCDatabase").collection("package-11");
+    const package12 = client.db("KDCDatabase").collection("package-12");
+    const package13 = client.db("KDCDatabase").collection("package-13");
+    const package14 = client.db("KDCDatabase").collection("package-14");
+    const package15 = client.db("KDCDatabase").collection("package-15");
 
     app.post("/registration", async (req, res) => {
       const userInformation = req.body;
@@ -55,6 +67,30 @@ async function run() {
         selectedCollection = package2;
       } else if (query == 3) {
         selectedCollection = package3;
+      } else if (query == 4) {
+        selectedCollection = package4;
+      } else if (query == 5) {
+        selectedCollection = package5;
+      } else if (query == 6) {
+        selectedCollection = package6;
+      } else if (query == 7) {
+        selectedCollection = package7;
+      } else if (query == 8) {
+        selectedCollection = package8;
+      } else if (query == 9) {
+        selectedCollection = package9;
+      } else if (query == 10) {
+        selectedCollection = package10;
+      } else if (query == 11) {
+        selectedCollection = package11;
+      } else if (query == 12) {
+        selectedCollection = package12;
+      } else if (query == 13) {
+        selectedCollection = package13;
+      } else if (query == 14) {
+        selectedCollection = package14;
+      } else if (query == 15) {
+        selectedCollection = package15;
       } else {
         return res.status(400).json({ error: "Invalid package id" });
       }
@@ -84,6 +120,30 @@ async function run() {
         selectedCollection = package2;
       } else if (query == 3) {
         selectedCollection = package3;
+      } else if (query == 4) {
+        selectedCollection = package4;
+      } else if (query == 5) {
+        selectedCollection = package5;
+      } else if (query == 6) {
+        selectedCollection = package6;
+      } else if (query == 7) {
+        selectedCollection = package7;
+      } else if (query == 8) {
+        selectedCollection = package8;
+      } else if (query == 9) {
+        selectedCollection = package9;
+      } else if (query == 10) {
+        selectedCollection = package10;
+      } else if (query == 11) {
+        selectedCollection = package11;
+      } else if (query == 12) {
+        selectedCollection = package12;
+      } else if (query == 13) {
+        selectedCollection = package13;
+      } else if (query == 14) {
+        selectedCollection = package14;
+      } else if (query == 15) {
+        selectedCollection = package15;
       } else {
         return res.status(400).json({ error: "Invalid package id" });
       }
@@ -111,6 +171,30 @@ async function run() {
         selectedCollection = package2;
       } else if (query == 3) {
         selectedCollection = package3;
+      } else if (query == 4) {
+        selectedCollection = package4;
+      } else if (query == 5) {
+        selectedCollection = package5;
+      } else if (query == 6) {
+        selectedCollection = package6;
+      } else if (query == 7) {
+        selectedCollection = package7;
+      } else if (query == 8) {
+        selectedCollection = package8;
+      } else if (query == 9) {
+        selectedCollection = package9;
+      } else if (query == 10) {
+        selectedCollection = package10;
+      } else if (query == 11) {
+        selectedCollection = package11;
+      } else if (query == 12) {
+        selectedCollection = package12;
+      } else if (query == 13) {
+        selectedCollection = package13;
+      } else if (query == 14) {
+        selectedCollection = package14;
+      } else if (query == 15) {
+        selectedCollection = package15;
       } else {
         return res.status(400).json({ error: "Invalid package id" });
       }
