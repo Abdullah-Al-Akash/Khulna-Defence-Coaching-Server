@@ -39,7 +39,6 @@ async function run() {
 
     app.post("/registration", async (req, res) => {
       const userInformation = req.body;
-      console.log(userInformation);
       const result = await KDCCollection.insertOne(userInformation);
       res.send(result);
     });
@@ -47,7 +46,7 @@ async function run() {
     //Load Package:
     app.get("/package", async (req, res) => {
       const query = req.query.id;
-      console.log(query);
+      // console.log(query);
       let selectedCollection;
 
       if (query == 1) {
@@ -60,15 +59,87 @@ async function run() {
         return res.status(400).json({ error: "Invalid package id" });
       }
 
-      console.log(selectedCollection);
-
       try {
         const cursor = await selectedCollection.find({});
         const result = await cursor.toArray();
-        console.log(result);
+
         res.json(result);
       } catch (error) {
         console.error("Error fetching data:", error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    });
+
+    // Post Question
+    app.post("/package", async (req, res) => {
+      const query = req.query.id;
+      console.log(query);
+      const question = req.body;
+
+      let selectedCollection;
+
+      if (query == 1) {
+        selectedCollection = package1;
+      } else if (query == 2) {
+        selectedCollection = package2;
+      } else if (query == 3) {
+        selectedCollection = package3;
+      } else {
+        return res.status(400).json({ error: "Invalid package id" });
+      }
+      try {
+        const result = await selectedCollection.insertOne(question);
+        res.send(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    });
+
+    // Update Quiz:
+    app.put("/updateQuiz", async (req, res) => {
+      const query = req.query.quizId;
+      const id = req.query._id;
+      const updatedQuiz = req.body;
+      console.log(updatedQuiz);
+
+      let selectedCollection;
+
+      if (query == 1) {
+        selectedCollection = package1;
+      } else if (query == 2) {
+        selectedCollection = package2;
+      } else if (query == 3) {
+        selectedCollection = package3;
+      } else {
+        return res.status(400).json({ error: "Invalid package id" });
+      }
+
+      try {
+        const filter = { _id: new ObjectId(id) }; // Define filter using _id
+        const options = { upsert: true };
+        const updateQuiz = {
+          $set: {
+            question: updatedQuiz?.question,
+            options: {
+              option1: updatedQuiz?.options.option1,
+              option2: updatedQuiz?.options.option2,
+              option3: updatedQuiz?.options.option3,
+              option4: updatedQuiz?.options.option4,
+            },
+            correctOption: updatedQuiz?.correctOption,
+            explanation: updatedQuiz?.explanation,
+          },
+        };
+
+        const result = await selectedCollection.updateOne(
+          filter,
+          updateQuiz,
+          options
+        );
+        res.send(result);
+      } catch (error) {
+        console.error("Error updating quiz:", error);
         res.status(500).json({ error: "Internal server error" });
       }
     });
