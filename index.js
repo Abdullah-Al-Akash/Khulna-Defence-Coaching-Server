@@ -245,6 +245,20 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/submit-ans", async (req, res) => {
+      const query = req.query.email;
+      console.log(query);
+      if (query == "all") {
+        const cursor = ansSheetCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+      } else {
+        const cursor = ansSheetCollection.find({ email: query });
+        const result = await cursor.toArray();
+        res.send(result);
+      }
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
