@@ -33,6 +33,9 @@ async function run() {
 
     // Create Database and Collection:
     const users = client.db("KDCDatabase").collection("users");
+    const ansSheetCollection = client
+      .db("KDCDatabase")
+      .collection("ansSheetCollection");
     const package1 = client.db("KDCDatabase").collection("package-1");
     const package2 = client.db("KDCDatabase").collection("package-2");
     const package3 = client.db("KDCDatabase").collection("package-3");
@@ -235,9 +238,18 @@ async function run() {
       res.send(result);
     });
 
+    // Submitted Ans:
+    app.post("/submit-ans", async (req, res) => {
+      const submittedAns = req.body;
+      const result = await ansSheetCollection.insertOne(submittedAns);
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
