@@ -32,7 +32,7 @@ async function run() {
     console.log("Connected Successfully!");
 
     // Create Database and Collection:
-    const KDCCollection = client.db("KDCDatabase").collection("users");
+    const users = client.db("KDCDatabase").collection("users");
     const package1 = client.db("KDCDatabase").collection("package-1");
     const package2 = client.db("KDCDatabase").collection("package-2");
     const package3 = client.db("KDCDatabase").collection("package-3");
@@ -229,8 +229,10 @@ async function run() {
     });
 
     // Load All Users:
-    app.get("/", async (req, res) => {
-      res.send("Server Running");
+    app.get("/users", async (req, res) => {
+      const cursor = users.find();
+      const result = await cursor.toArray();
+      res.send(result);
     });
 
     // Send a ping to confirm a successful connection
