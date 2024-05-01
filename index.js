@@ -32,7 +32,7 @@ async function run() {
     console.log("Connected Successfully!");
 
     // Create Database and Collection:
-    const users = client.db("KDCDatabase").collection("users");
+    const usersCollection = client.db("KDCDatabase").collection("users");
     const ansSheetCollection = client
       .db("KDCDatabase")
       .collection("ansSheetCollection");
@@ -54,7 +54,7 @@ async function run() {
 
     app.post("/registration", async (req, res) => {
       const userInformation = req.body;
-      const result = await KDCCollection.insertOne(userInformation);
+      const result = await usersCollection.insertOne(userInformation);
       res.send(result);
     });
 
@@ -234,7 +234,7 @@ async function run() {
 
     // Load All Users:
     app.get("/users", async (req, res) => {
-      const cursor = users.find();
+      const cursor = usersCollection.find();
       const result = await cursor.toArray();
       res.send(result);
     });
