@@ -229,6 +229,9 @@ async function run() {
     });
 
     // Load All Users:
+    app.get("/", async (req, res) => {
+      res.send("Server Running");
+    });
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
