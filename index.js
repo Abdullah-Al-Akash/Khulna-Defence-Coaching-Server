@@ -213,6 +213,7 @@ async function run() {
               option2: updatedQuiz?.options.option2,
               option3: updatedQuiz?.options.option3,
               option4: updatedQuiz?.options.option4,
+              option5: updatedQuiz?.options.option5,
             },
             correctOption: updatedQuiz?.correctOption,
             explanation: updatedQuiz?.explanation,
