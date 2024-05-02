@@ -33,6 +33,9 @@ async function run() {
 
     // Create Database and Collection:
     const usersCollection = client.db("KDCDatabase").collection("users");
+    const requestCollection = client
+      .db("KDCDatabase")
+      .collection("requestedPackage");
     const ansSheetCollection = client
       .db("KDCDatabase")
       .collection("ansSheetCollection");
@@ -239,6 +242,13 @@ async function run() {
       res.send(result);
     });
 
+    app.get("/singleUser", async (req, res) => {
+      const email = req.query.email;
+      const user = usersCollection.find({ email: email });
+      const result = await user.toArray();
+      res.send(result[0]);
+    });
+
     // Submitted Ans:
     app.post("/submit-ans", async (req, res) => {
       const submittedAns = req.body;
@@ -260,6 +270,11 @@ async function run() {
       }
     });
 
+    // Requested Package:
+    app.post("/reuestQuiz", async (req, res) => {
+      const requestedQuiz = req.body;
+      console.log(requestedQuiz);
+    });
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
