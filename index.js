@@ -210,6 +210,7 @@ async function run() {
         const options = { upsert: true };
         const updateQuiz = {
           $set: {
+            imageUrl: imageUrl,
             question: updatedQuiz?.question,
             options: {
               option1: updatedQuiz?.options.option1,
