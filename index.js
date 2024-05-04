@@ -39,6 +39,7 @@ async function run() {
     const ansSheetCollection = client
       .db("KDCDatabase")
       .collection("ansSheetCollection");
+    const noticeCollection = client.db("KDCDatabase").collection("notices");
     const package1 = client.db("KDCDatabase").collection("package-1");
     const package2 = client.db("KDCDatabase").collection("package-2");
     const package3 = client.db("KDCDatabase").collection("package-3");
@@ -210,7 +211,7 @@ async function run() {
         const options = { upsert: true };
         const updateQuiz = {
           $set: {
-            imageUrl: imageUrl,
+            imageUrl: updatedQuiz?.image,
             question: updatedQuiz?.question,
             options: {
               option1: updatedQuiz?.options.option1,
@@ -279,6 +280,35 @@ async function run() {
       const requestedQuiz = req.body;
       console.log(requestedQuiz);
     });
+
+    // Notice:
+    app.get("/notices", async (req, res) => {
+      const result = await noticeCollection.find().toArray();
+      res.send(result);
+    });
+    app.put("/updateNotice", async (req, res) => {
+      const id = req.query.id;
+      console.log(id);
+      const notices = req.body;
+      const filter = {
+        _id: new ObjectId(id),
+      };
+      const options = { upsert: true };
+      const updateNotice = {
+        $set: {
+          notice: notices?.notice,
+          noticeLink: notices?.noticeLink,
+          lastDate: notices?.lastDate,
+        },
+      };
+      const result = await noticeCollection.updateOne(
+        filter,
+        updateNotice,
+        options
+      );
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
